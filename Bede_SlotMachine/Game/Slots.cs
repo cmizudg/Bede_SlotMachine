@@ -32,14 +32,13 @@ namespace SlotMachine.Game
                     }
 
                     earnings += Calculations.CalculateCoefficient(currentSymbolRow) * stake;
-
                     Console.WriteLine();
                 }
 
                 balance += earnings - stake;
                 Console.WriteLine($"You have won: {earnings.ToString("n2")}");
                 Console.WriteLine($"Current balance is: {balance.ToString("n2")}\n");
-                if (balance > 0)
+                if (balance > 0f)
                 {
                     stake = Checks.StakeCheck(balance);
                 }

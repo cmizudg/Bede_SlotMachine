@@ -35,27 +35,32 @@ namespace SlotMachine.Calculation
         /// </returns>
         public static float CalculateCoefficient(SlotSymbol[] symbolsRow)
         {
-            // Sort the Array and find how many Wildcards we have to simplify If checks. If we have Wildcards, which are '*',
-            // we know they'll always come first, so we can determine which cells' coefficient to sum or return.
+            // Sort the Array and find how many Wildcards we have to simplify the 'If' checks. If we have Wildcards, which are '*',
+            // we know they'll always come first after sort, so we can determine which cells' coefficient to sum or return.
 
             var sortedSymbols = symbolsRow.OrderBy(s => s.Symbol).ToArray();
             var wildcardsCount = Array.FindAll(sortedSymbols, x => x.Symbol == new Wildcard().Symbol).Count();
 
             var coefficient = 0f;
-            if (wildcardsCount == 1 && (sortedSymbols[1].Symbol == sortedSymbols[2].Symbol))
+
+            if (wildcardsCount == 3)
             {
-                coefficient += MathF.Round(sortedSymbols[1].Coefficient + sortedSymbols[2].Coefficient, 2);
+                return coefficient;
             }
             else if (wildcardsCount == 2)
             {
                 coefficient += sortedSymbols[2].Coefficient;
             }
+            else if (wildcardsCount == 1 && (sortedSymbols[1].Symbol == sortedSymbols[2].Symbol))
+            {
+                coefficient += sortedSymbols[1].Coefficient + sortedSymbols[2].Coefficient;
+            }
             else if (sortedSymbols[0].Symbol == sortedSymbols[1].Symbol && sortedSymbols[0].Symbol == sortedSymbols[2].Symbol)
             {
-                coefficient += MathF.Round(sortedSymbols[0].Coefficient + sortedSymbols[1].Coefficient + sortedSymbols[2].Coefficient, 2);
+                coefficient += sortedSymbols[0].Coefficient + sortedSymbols[1].Coefficient + sortedSymbols[2].Coefficient;
             }
 
-            return coefficient;
+            return MathF.Round(coefficient, 2);
         }
     }
 }
