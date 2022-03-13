@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bede_SlotMachine.Checks
 {
     public static class Checks
     {
-
         /// <summary>
         /// Checks whether or not the Input is a positive number
         /// </summary>
@@ -44,19 +39,17 @@ namespace Bede_SlotMachine.Checks
             var stake = 0f;
             var correctFormat = false;
             Console.WriteLine("Enter stake amount:");
-            while (!correctFormat || stake <= 0)
+            while (!correctFormat || stake <= 0 || stake > balance )
             {
                 correctFormat = float.TryParse(Console.ReadLine(), out stake);
+                if (stake > balance)
+                {
+                    Console.WriteLine("You cannot bet more than you have in your Balance!\nEnter stake amount:");
+                }
                 if (!correctFormat || stake <= 0f)
                 {
                     Console.WriteLine("Please insert only positive numeric values for stake:");
                 }
-            }
-
-            while (stake > balance)
-            {
-                Console.WriteLine("You cannot bet more than you have in your Balance!\nEnter stake amount:");
-                stake = float.Parse(Console.ReadLine());
             }
 
             return stake;

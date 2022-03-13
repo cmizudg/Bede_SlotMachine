@@ -30,8 +30,8 @@ namespace SlotMachine.Game
                 }
 
                 balance += earnings - stake;
-                Console.WriteLine($"You have won: {earnings.ToString("n2")}");
-                Console.WriteLine($"Current balance is: {balance.ToString("n2")}\n");
+                Console.WriteLine($"You have won: {earnings:n2}");
+                Console.WriteLine($"Current balance is: {balance:n2}\n");
                 if (balance > 0f)
                 {
                     stake = Checks.StakeCheck(balance);
