@@ -13,25 +13,19 @@ namespace SlotMachine.Game
             {
                 Console.WriteLine();
                 // Create and fill an array with random symbols and their coefficients
-                var symbolRows = new SlotSymbol[4, 3]
-                {
-                    { Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol() },
-                    { Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol() },
-                    { Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol() },
-                    { Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol(), Calculations.PickSlotSymbol() }
-                };
+                var slotSymbols = Calculations.PickSlotSymbols();
 
                 var earnings = 0f;
                 for (int i = 0; i < 4; i++)
                 {
-                    var currentSymbolRow = new SlotSymbol[3];
+                    var currentRow = new SlotSymbol[3];
                     for (int j = 0; j < 3; j++)
                     {
-                        Console.Write(symbolRows[i, j].Symbol);
-                        currentSymbolRow[j] = symbolRows[i, j];
+                        Console.Write(slotSymbols[i, j].Symbol);
+                        currentRow[j] = slotSymbols[i, j];
                     }
 
-                    earnings += Calculations.CalculateCoefficient(currentSymbolRow) * stake;
+                    earnings += Calculations.CalculateCoefficient(currentRow) * stake;
                     Console.WriteLine();
                 }
 

@@ -7,22 +7,29 @@ namespace SlotMachine.Calculation
     public static class Calculations
     {
         /// <summary>
-        /// Picks a random SlotSymbol type object, based on on their individual chance to appear and accumulating it when it doesn't match the current one.
+        /// Picks the Slot Symbols for the game, based on on their individual chance to appear.
         /// </summary>
         /// <returns>
-        /// a new SlotSymbol subclass object.
+        /// A new array of SlotSymbol subclass objects.
         /// </returns>
-        public static SlotSymbol PickSlotSymbol()
+        public static SlotSymbol[,] PickSlotSymbols()
         {
-            var value = Convert.ToSByte(new Random().Next(1, 101));
-
-            return value switch
+            var slotSymbols = new SlotSymbol[4, 3];
+            for (int i = 0; i < 4; i++)
             {
-                <= Wildcard.ChanceToAppear => new Wildcard(),
-                <= Pineapple.ChanceToAppear + Wildcard.ChanceToAppear => new Pineapple(),
-                <= Banana.ChanceToAppear + Pineapple.ChanceToAppear + Wildcard.ChanceToAppear => new Banana(),
-                _ => new Apple()
-            };
+                for (int j = 0; j < 3; j++)
+                {
+                    var rnd = Convert.ToSByte(new Random().Next(1, 101));
+                    slotSymbols[i, j] = rnd switch
+                    {
+                        <= Wildcard.ChanceToAppear => new Wildcard(),
+                        <= Pineapple.ChanceToAppear + Wildcard.ChanceToAppear => new Pineapple(),
+                        <= Banana.ChanceToAppear + Pineapple.ChanceToAppear + Wildcard.ChanceToAppear => new Banana(),
+                        _ => new Apple()
+                    };
+                }
+            }
+            return slotSymbols;
         }
 
         /// <summary>
