@@ -19,7 +19,7 @@ namespace SlotMachine.Calculation
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    var rnd = Convert.ToSByte(new Random().Next(1, 101));
+                    var rnd = new Random().Next(1, 101);
                     slotSymbols[i, j] = rnd switch
                     {
                         <= Wildcard.ChanceToAppear => new Wildcard(),
