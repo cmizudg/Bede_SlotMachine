@@ -35,11 +35,10 @@ namespace Bede_SlotMachine.Checks
         /// </returns>
         public static float StakeCheck(float balance)
         {
-            // Subject to change every spin or just once?
             var stake = 0f;
             var correctFormat = false;
             Console.WriteLine("Enter stake amount:");
-            while (!correctFormat || stake <= 0 || stake > balance )
+            while (!correctFormat || stake <= 0f || stake > balance )
             {
                 correctFormat = float.TryParse(Console.ReadLine(), out stake);
                 if (stake > balance)
